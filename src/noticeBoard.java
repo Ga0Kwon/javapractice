@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
-/*자바 비회원제 게시판*/
+/*---------------자바 비회원제 게시판---------------*/
 public class noticeBoard { //class start
     public static void main(String[] args) { //main start
 
