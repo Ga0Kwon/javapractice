@@ -15,11 +15,11 @@ public class noticeBoard {//class start
         while (true){ //while start
             //게시판 목록 출력
             System.out.println("-------------------게시판 목록------------------");
-            System.out.println("인덱스 번호 \t\t 작성자 \t\t\t\t 제목");
+            System.out.println("인덱스 번호 \t\t 작성자 \t\t 제목");
 
            for(int index = 0; index < boardList.length; index++){
                 if(boardList[index] != null){ //해당 인덱스가 비어있지 않으면
-                    System.out.printf("\t%d \t\t\t %s \t\t\t\t %s", index, boardList[index].Writer, boardList[index].Title ); //인덱스 번호, 작성자, 제목 출력
+                    System.out.printf("%d \t\t %s \t\t %s", index, boardList[index].Writer, boardList[index].Title ); //인덱스 번호, 작성자, 제목 출력
                     System.out.println();
                 }
             }
