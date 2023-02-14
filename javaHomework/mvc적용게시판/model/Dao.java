@@ -7,9 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import DB버전게시판.Board;
-
 public class Dao {
+	//* 싱글톤
+	private static Dao dao = new Dao();
+	
 	private Connection conn ;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -37,6 +38,10 @@ public class Dao {
 			System.out.println("연결 실패!");
 		}
 	}
+	//dao 반환
+	public static Dao getInstance() {
+		return dao;
+	}
 	
 	/*전체 글 조회*/
 	public ArrayList<Board> print(){
@@ -54,10 +59,10 @@ public class Dao {
         	while(rs.next()) { // 다음 데이터가 있으면
             	Board board = new Board(); //board객체 생성
             	board.setBno(rs.getInt("bno"));
-            	board.setTitle(rs.getString("btitle"));
-            	board.setContent(rs.getString("bcontent"));
-            	board.setWriter(rs.getString("bwriter"));
-            	board.setPassword(rs.getString("bpassword"));
+            	board.setBtitle(rs.getString("btitle"));
+            	board.setBcontent(rs.getString("bcontent"));
+            	board.setBwriter(rs.getString("bwriter"));
+            	board.setBpassword(rs.getString("bpassword"));
             	boardList.add(board);
         	}
         	
@@ -78,10 +83,10 @@ public class Dao {
 	       //PreparedStatement 얻기 및 값 지정
            pstmt = conn.prepareStatement(sql);
            
-           pstmt.setString(1,  board.getTitle());
-           pstmt.setString(2,  board.getContent());
-           pstmt.setString(3,  board.getWriter());
-           pstmt.setString(4,  board.getPassword());
+           pstmt.setString(1,  board.getBtitle());
+           pstmt.setString(2,  board.getBcontent());
+           pstmt.setString(3,  board.getBwriter());
+           pstmt.setString(4,  board.getBpassword());
            pstmt.executeUpdate();
            return true; //성공시
        	
@@ -104,10 +109,10 @@ public class Dao {
         	 if(rs.next()) { //데이터값이 있으면 => 해당 인덱스의 읽어올 값이 있으면
         		 Board board = new Board(); //board 객체 생성
         		 board.setBno(rs.getInt("bno"));
-        		 board.setTitle(rs.getString("btitle"));
-        		 board.setContent(rs.getString("bcontent"));
-        		 board.setPassword(rs.getString("bpassword"));
-        		 board.setWriter(rs.getString("bwriter"));
+        		 board.setBtitle(rs.getString("btitle"));
+        		 board.setBcontent(rs.getString("bcontent"));
+        		 board.setBpassword(rs.getString("bpassword"));
+        		 board.setBwriter(rs.getString("bwriter"));
         		 return board; //데이터값이 있다면 전부 넣고, board를 반환
         	 }
         	 
@@ -119,24 +124,24 @@ public class Dao {
 	
 	/*게시글 수정 => 수정할 때 제목 따로, 내용따로 선택해서 그것만 수정받는 것이 아니라 
 	  그냥, 다 같이 수정하도록하게 바꿈.*/
-	public Boolean changeUpdate(int index) {
+	public boolean changeUpdate(Board board) {
 		try {
 			String sql ="UPDATE boards SET btitle = ?, bcontent = ?, bwriter = ?, bpassword = ?" 
 					 + "WHERE bno = ?";
 			
 			 pstmt = conn.prepareStatement(sql);
 			 
-//			 pstmt.setString(1, board.getTitle());
-//    		 pstmt.setString(2, board.getContent());
-//    		 pstmt.setString(3, board.getWriter());
-//    		 pstmt.setString(4, board.getPassword());
-//    		 pstmt.setInt(5, board.getBno());
+			 pstmt.setString(1, board.getBtitle());
+    		 pstmt.setString(2, board.getBcontent());
+    		 pstmt.setString(3, board.getBwriter());
+    		 pstmt.setString(4, board.getBpassword());
+    		 pstmt.setInt(5, board.getBno());
     		 
     		 pstmt.executeUpdate();
+    		 return true; //성공시
 		}catch(Exception e) {
-			return false;
-		}
-		
+			return false;//실패시
+		}	
 	}
 	/*게시글 삭제*/
 	public Boolean delete(int index) {
