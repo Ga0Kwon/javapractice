@@ -1,3 +1,4 @@
+package 기본게시판;
 /*
  	[비회원 게시판]
  		1. 내용 : 번호, 작성자, 제목 ->
@@ -8,7 +9,6 @@
  					2. 글 삭제
  					3. 글 수정
  */
-
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
