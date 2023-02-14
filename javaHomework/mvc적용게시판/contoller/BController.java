@@ -29,10 +29,9 @@ public class BController {
 	
 	/*게시글 수정*/
 	public boolean changeUpdate(String title, String content, int index) {
-		Board board = new Board();
+		Board board = Dao.getInstance().selectView(index);
 		board.setBtitle(title); //제목 바꿈
 		board.setBcontent(content); //내용 바꿈
-		board.setBno(index);
 		
 		boolean result = Dao.getInstance().changeUpdate(board);
 		

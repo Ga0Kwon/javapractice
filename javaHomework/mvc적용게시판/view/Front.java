@@ -22,9 +22,9 @@ public class Front {
 	
 	//메인 페이지
 	public void index() {
-		ArrayList<Board> boardList = Dao.getInstance().print();
-		
 		while(true) {
+			ArrayList<Board> boardList = Dao.getInstance().print();
+			
 			System.out.println("-------------------게시판 목록------------------");
 			System.out.println("번호\t제목\t\t\t작성자");
 			
